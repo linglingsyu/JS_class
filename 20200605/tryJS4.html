@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陣列與物件</title>
+</head>
+<body>
+    <h1>陣列與物件</h1>
+    <script>
+        
+        // let arr = [];
+        let arr = new Array();
+        for (let i = 0; i < 11; i++){
+            arr.push("a"+i);
+        }
+
+        //forEach的用法
+        function showarr(value,item,data){
+            console.log(`item=${item} value=${value} data=${data} `)
+        }
+        arr.forEach(showarr);
+        // forEach內接一個function,function第一個參數給value,第二個參數給key,第三個參數會給整個arr
+        //也可以直接在裡面寫一個匿名函式
+        arr.forEach(function(value,item){
+            console.log(`item=${item} value=${value}`)
+        })
+        //ES6箭頭函式,作用類似匿名函式 => 供快速使用,x (this)=>(...) this不能使用,但正常寫法可以放this
+        arr.forEach((value,item) => {
+            console.log(`item=${item} value=${value}`)
+        })
+
+        console.log("-----------------");
+
+        //forof 只會提供value值使用,沒有key值,不需要寫函式
+        for (let i of arr) {
+            console.log(i);
+        }
+
+        console.log("-----------------");
+
+
+        //filter過濾:他可以幫你對一個array進行條件return，最後集結成一個陣列
+
+        arr[50] = 100;
+        /*
+        此時會有第arr[11]~arr[49]會是空陣列
+        */
+
+        // Q:請幫忙將陣列的無效陣列格子移除
+
+        function clearNull(val){
+            // if(val != null) return val;
+            //客家起來! ↓↓↓↓↓
+            return (val != null);
+        }
+        b = arr.filter(clearNull);
+        console.log(b);
+        //此時全新的B陣列就沒有那些空陣列了
+
+        //更客家精神，直接用箭頭函式將arr翻新! ↓↓↓↓↓
+        arr = arr.filter( (val)=>{return val!=null } );
+
+
+        console.log("-----------------");
+
+        //data陣列適合拿來做資料整理，DAT物件適合做暫存取存
+        //JSON格式物件
+        let obj = {
+            cat:"加菲喵",
+            dog:"史努比",
+            other:{
+                house:"彩虹小馬",
+                mouse:"米老鼠"
+            }
+        }
+        console.log(obj.other.house);
+        console.log("cat" in obj); //true
+        console.log("house" in obj); //fale(因為在第二層)
+
+
+
+
+        console.log("-----------------");
+
+        //for-in   key
+        for (const key in obj) {
+            console.log(key,obj[key]);
+        }
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

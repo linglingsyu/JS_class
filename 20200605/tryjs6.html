@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>write it !!</title>
+</head>
+<body>
+    <script>
+        //等待瀏覽器 已解析生成完畢 document後才執行某函式 
+        //不要用window onload 搭配document write
+        // window.onload = function(){
+        //     wt();
+        // }
+    </script>
+
+
+    <h1>hello world</h1>
+    <p id="username">123</p>
+    <script>
+        // console.log(123);
+        // console.error(123);
+        // console.info(123);
+        // console.warn(123);
+        // console.dir(123);
+
+        // document.write("<i>我用JS寫der~</i>");
+
+        function wt(){
+            // document.write("<p>我用JS function寫der~</p>"); 
+            //建議再DOC製造過程中宣過
+            //如果再load完成後執行，會當作再進行一次document的製造產生
+            document.getElementById("username").textContent="LOKI";
+        }
+
+ 
+
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Hellp world</h1>
+
+
+    <script>
+
+        // if (condition) {
+        //     //codeA
+        // } else {
+        //     //codeB
+        // }
+
+        // if (condition) {
+        //     //codeA
+        // }else if(true){
+        //     //codeC
+        // }else{
+        //     //codeB
+        // }
+
+        // a = 50;
+        // if (a > 60) a = 100;
+        // else a = 0;
+
+        // let man = true;
+        // if (man) {
+        //     console.log("挖你好率");
+        // } else {
+        //     console.log("東踏取蜜");
+        // }
+        // let height = 158;
+        // let money = 50;
+        // let face = 0; //1帥 0醜
+
+        // if (height > 170 && money > 80 && face) console.log("100分");
+        // else if (height > 170 || money > 80 || face) console.log("60~99分");
+        // else console.log("0~59分");
+
+        // let day = 4;
+        // console.log(`Today is ${day < 6 ? "平日" : "假日"}`);
+
+
+        // let lang = "tw";
+        // switch (lang) {
+        //     case "tw": console.log("我喜歡你");
+        //         break;
+        //     case "JP": console.log("愛shiteru");
+        //         break;
+        //     case "hk": console.log("我好鍾意黎");
+        //         break;
+        //     case "us": console.log("I love you");
+        //         break;
+        //     default: console.log("...");
+        //         break;
+        // }
+
+        // if (lang == "tw") console.log("我喜歡你");
+        // else if (lang == "jp") console.log("愛shiteru");
+        // else if (lang == "hk") console.log("我好鍾意黎");
+        // else if (lang == "us") console.log("I love you");
+        // else console.log("...");
+
+
+        // for (let i = 1; i < 12; i += 3) console.log(i);
+
+        for (let i = 1 ,j = 1 ; i < 10 ;  j ++  ) {
+            if (j >= 10){
+                i++;
+                j = 0;
+                continue;
+            }
+                console.log(`${i} * ${j} = ${i * j}`);           
+        }
+
+
+        // for (var i = 0; i < 10; i++) {
+        //     console.log(i);
+        //     setTimeout(function () {
+        //         console.log('這執行第' + i + '次');
+        //     }, 10);
+        // }
+
+        // for (let i = 0; i < 10; i++) {
+        //     console.log(i);
+        //     setTimeout(function () {
+        //         console.log('這執行第' + i + '次');
+        //     }, 10);
+        // }
+
+
+        // 條件為真,進入迴圈
+        let n = 0;
+        while ( n < 5){
+            console.log(n);
+            n++;
+        }
+
+
+        let msg = "" , k=0;
+        do {
+            msg+=k;
+            k++;
+        }while(k<5);
+        console.log(msg);
+
+
+        var m = 0;
+        while(m<10){
+            m++;
+            if(m==5) continue; //略過印5
+            if(m==8) break; // 跳出迴圈
+            console.log(m);
+        }
+
+        function parrot(say){
+            if(say == "mute") return;
+            console.log("阿~~"+say)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

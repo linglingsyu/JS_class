@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>BOM DEMO PAGE</h1>
+    <script>
+        // history.back //回上一頁
+        // history.forward //回下一頁 = history.go(1)
+        // history.go(2); // 去下兩頁
+        // history.go(-5); //去前五頁
+        // history.go(0); //網頁刷新
+
+        // screen.width //取得使用者目前螢幕解析度
+        // location.href //取得目前網址
+        // location.assign("url") // 去別的頁面
+
+        // alert("你這個網頁小偷!!"); 跳出警告視窗
+
+    //    let bin =  confirm("你今天過的好嗎?");  //根據使用者按下確定or取消,回傳一個布林值
+    //    alert((bin)? "真是美好的一天啊~":"明天會更好低~");
+
+    // let ans = prompt("你等等怎麼回家?","走路"); //指定一個訊息請使用者輸入,可以指定預設值(回傳一個字串)
+    // if ( ans != null)  alert("那你等等"+ans+"小心喔:)");
+
+
+    var sec = 5*1000;
+    function fn(){
+        console.log(123);
+    }
+    var stop = setTimeout(fn,sec); //5秒後出現123
+    clearTimeout(stop); //取消setTimeout
+
+
+//簡寫
+    var stop = setTimeout(()=>{console.log(456);},3000);
+
+
+        //homework
+        /* https://sweetalert2.github.io/
+        建立空白網頁，使用ifelse,alert,confirm,prompt，設計一個闖5關的遊戲
+
+        
+        
+        */
+
+
+
+
+    </script>
+</body>
+</html>
