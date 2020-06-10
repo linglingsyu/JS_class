@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件</title>
+</head>
+<body>
+  <h1>事件</h1>
+  <input type="button" value="onclick Demo" onclick="showmsg('這是從HTML的onclick生成')">
+  <hr>
+  <!-- 點擊事件onclick -->
+  <input type="button" value="onclick" onclick="whatIs(this)"> <!-- this指的是input本身 -->
+  <!-- onmousedown滑鼠點下去就生效 -->
+  <input type="button" value="onclick" onmousedown="whatIs(this)"> 
+  <!-- onmouseup不管在哪裡按下去,滑鼠彈起來就生效 -->
+  <input type="button" value="onclick" onmouseup="whatIs(this)"> 
+  <!-- onmouseover滑鼠移入生效 -->
+  <input type="button" value="onclick" onmouseover="whatIs(this)"> 
+
+  <!-- 變化(更改內容) -->
+  <input type="text" value="onchange" onchange="whatIs(this)" >
+  <!-- 失焦 -->
+  <input type="text" value="onblur" onblur="whatIs(this)" >
+  <!-- 焦點 -->
+  <input type="text" value="onfocus" onfocus="whatIS(this)" >
+
+
+<div onclick="whatIs(this)">Touch me</div>
+
+
+<div id="fakeBtn"></div>
+<hr>
+<div>你的鍵盤代號為：<span id="keycode"></span></div>
+
+
+
+  <script>
+
+    function showmsg(txt){
+      console.log(txt);
+    }
+
+    function whatIs(e){ //有些人懶到只寫一個字母e做傳遞變數,不可能是this物件
+      if(e.style.color==="red"){
+        // e.style.color=null; //透過物件的方式找到該屬性物件設定無
+        e.style="font-size:2rem"; //暴力的將純HTML屬性文字做覆蓋
+      } 
+      else{
+        // e.style="color:red;font-size:2rem"; //暴力
+        e.style.color = "red";
+        e.style.fontsize = "2rem";
+      }
+      console.log(`你剛剛按下了 ${e.value} 按鈕`);
+    }
+
+    // document.getElementById("fakeBtn").innerHTML="假按鈕";
+    // document.getElementById("fakeBtn").style="background:gray;display:inline-block;cursor:pointer;"
+    // document.getElementById("fakeBtn").onclick=function(){
+    //   alert("onclick");
+    // }
+    let fakeBtn = document.getElementById("fakeBtn");
+    fakeBtn.textContent="假按鈕";
+    fakeBtn.style = "background:gray;display:inline-block;padding:5px;margin:5px;cursor:pointer";
+    fakeBtn.onclick= ()=>{
+      alert(fakeBtn.style.backgroundColor);
+    }
+
+    /*鍵盤事件*/
+
+    document.onkeydown = function(){
+      console.log(event.keyCode); 
+      //跑出ascII key
+      let code = event.keyCode;
+      document.getElementById("keycode").textContent=String.fromCharCode(code);
+
+    }
+  </script>
+
+
+</body>
+</html>

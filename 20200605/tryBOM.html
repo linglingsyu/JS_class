@@ -37,15 +37,23 @@
 
 //簡寫
     var stop = setTimeout(()=>{console.log(456);},3000);
-
+    // clearTimeout(stop); //取消上面的setTimeout
 
         //homework
         /* https://sweetalert2.github.io/
-        建立空白網頁，使用ifelse,alert,confirm,prompt，設計一個闖5關的遊戲
-
-        
+        建立空白網頁，使用ifelse,alert,confirm,prompt，設計一個闖5關的遊戲 答對繼續 答錯結束遊戲  
         
         */
+
+
+    // 這邊 let i 要放在function外面 , 因為上面函式代表一直重複做reply()，let i放在裡面跑function時，ｉ會一直被重置為0
+    let i = 0;  //作為公用的變數,才能每次變化
+    function reply(){
+        console.log(i);
+        i++;
+        if(i === 5 ) clearInterval(timestop);
+    }
+    let timestop = setInterval(reply,1000); //代表一直做reply(); 延遲幾秒做什麼事(每幾秒做...)
 
 
 

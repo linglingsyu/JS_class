@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="demo">點這裡</p>
+  <!-- 當點擊此P元素時，執行add函式 -->
+  <button onclick="add()">按這裡</button>
+
+  <ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+
+  <script>
+
+    let demo = document.getElementById("demo");
+    /*
+    demo.onclick=add;
+    =============
+    demo.onclick=add();  same as ↓↓↓↓↓ not work
+    ==> 
+    add();
+    demo.onclick = null;
+    ===================
+
+
+    demo.setAttribute("onclick","add()");
+    demo.addEventListener("click",add);
+
+    */
+
+    //創建一個新的節點
+    function add(){
+      let btn = document.createElement("button"); //create
+      btn.textContent="AAA"; //set text
+      document.body.appendChild(btn); // inout to html space
+    }
+
+    //移除節點
+    // demo.remove();
+    document.body.removeChild();
+    document.getElementById("list").removeChild(document.getElementById("list").children[0]);
+
+
+
+  </script>
+
+<!-- add here -->
+
+
+
+</body>
+</html>
