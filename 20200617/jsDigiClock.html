@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #333;
+    }
+
+    .clock1 {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 750px;
+      margin: 20vh auto;
+      background: linear-gradient(rgba(238, 174, 202, 0.5), rgba(148, 187, 233, 0.5));
+      padding: 5px;
+    }
+
+    .ck,
+    .cc {
+      display: inline-flex;
+    }
+
+    /* 每個數字區域的大小 */
+    .ck>div {
+      width: 100px;
+      height: 100px;
+    }
+
+    /* 冒號區域的大小 */
+    .cc {
+      width: 50px;
+      height: 100px;
+    }
+
+    .c1,.c2,.c3,.c4,.c5,.c6,.c7,.c8,.c9,.c0,.cc {
+      background: url("clocknum.png");
+    }
+
+    .c0 {
+      background-position: 0px;
+    }
+
+    .c1 {
+      background-position: -100px;
+    }
+
+    .c2 {
+      background-position: -200px;
+    }
+
+    .c3 {
+      background-position: -300px;
+    }
+
+    .c4 {
+      background-position: -400px;
+    }
+
+    .c5 {
+      background-position: -500px;
+    }
+
+    .c6 {
+      background-position: -600px;
+    }
+
+    .c7 {
+      background-position: -700px;
+    }
+
+    .c8 {
+      background-position: -800px;
+    }
+
+    .c9 {
+      background-position: -900px;
+    }
+
+    .cc {
+      background-position: 50px;
+    }
+
+    .clock2{
+      margin:0 auto 20vh;
+      width: 600px;
+      height: 300px;
+      text-align:center;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Sriracha', cursive;
+    }
+
+    .clock2 #time{
+      font-size: 6rem ;
+      margin:0; 
+      /* p會自帶margin,清除 */
+    }
+
+    .clock2 #date{
+      font-size: 3rem ;
+      margin:0; 
+    }
+
+  
+
+
+
+
+  </style>
+</head>
+
+<body>
+  <div class="clock1">
+    <div class="ck">
+      <div id="ck1" class="c0"></div>
+      <div id="ck2" class="c1"></div>
+    </div>
+    <div class="cc"></div>
+    <div class="ck">
+      <div id="ck3" class="c2"></div>
+      <div id="ck4" class="c3"></div>
+    </div>
+    <div class="cc"></div>
+    <div class="ck">
+      <div id="ck5" class="c4"></div>
+      <div id="ck6" class="c5"></div>
+    </div>
+  </div>
+
+  <script>
+    function retime(){
+      setTimeout(retime, 1000); 
+      //每一秒執行retime
+      let nt = new Date();
+      let n_hour = nt.getHours(),n_min= nt.getMinutes(), n_sec = nt.getSeconds();
+
+      //個位數 T
+      let n_hourT= n_hour%10;
+      let n_minT = n_min%10;
+      let n_secT = n_sec%10;
+
+      //十位數 X
+      let n_hourX = Math.floor( n_hour / 10);
+      let n_minX= Math.floor( n_min / 10);
+      let n_secX= Math.floor( n_sec / 10);
+
+      document.getElementById("ck1").className="c"+n_hourX;
+      document.getElementById("ck2").className="c"+n_hourT;
+      document.getElementById("ck3").className="c"+n_minX;
+      document.getElementById("ck4").className="c"+n_minT;
+      document.getElementById("ck5").className="c"+n_secX;
+      document.getElementById("ck6").className="c"+n_secT;
+      document.getElementsByClassName("cc")[0].style.opacity=1;
+      document.getElementsByClassName("cc")[1].style.opacity=1;
+
+
+      setTimeout(() => {
+
+      document.getElementsByClassName("cc")[0].style.opacity=0;
+      document.getElementsByClassName("cc")[1].style.opacity=0;
+        
+      }, 500);
+    }
+    retime();
+
+  </script>
+
+<div class="clock2">
+  <p id="time">12:00:00</p>
+  <p id="date">2022-86-97 wed</p>
+</div>
+
+<script>
+
+  function chgtime(){
+      let nt = new Date();
+      let n_day = ['SUN','MON',"TUS","WED","THR","FRI","SAT"];
+      let 
+        n_hour = chk0(nt.getHours()), 
+        n_min = chk0(nt.getMinutes(),) 
+        n_sec = chk0(nt.getSeconds() ,) 
+        n_year = nt.getUTCFullYear(),
+        n_month = chk0(nt.getMonth()+1),
+        //因為month從0開始所以要+1
+        n_date = chk0(nt.getDate()),
+        n_daykey = nt.getDay() 
+        //星期幾
+        ;
+
+      let time = document.getElementById("time");
+      time.textContent = `${n_hour}:${n_min}:${n_sec}`;
+      let date = document.getElementById("date");
+      date.textContent = `${n_year}-${n_month}-${n_date} ${n_day[n_daykey]}`
+  }
+
+//如果是個位數前面補0
+  function chk0(num){
+    return (num<10)? "0"+num:num;
+  }
+
+  chgtime();
+  setInterval(chgtime,1000);
+
+
+</script>
+
+
+
+
+</body>
+
+</html>
