@@ -1,66 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    #bg{
+    #bg {
       width: 500px;
-      height:300px;
-      border:1px solid #000;
+      height: 300px;
+      border: 1px solid #000;
+      font-size:36px;
+      line-height: 300px;
+      text-align: center;
     }
-    button{
-      margin:5px;
-      padding:5px;
+
+    button {
+      margin: 5px;
+      padding: 5px;
+      width: 50px;
+      height: 50px;
     }
-    
   </style>
 </head>
+
 <body>
-<div id="bg"></div>
-<button id="r">R</button>
-<button id="g">G</button>
-<button id="b">B</button>
-<script>
-  let r = document.getElementById("r");
-  let g = document.getElementById("g");
-  let b = document.getElementById("b");
-  let bg = document.getElementById("bg");
-  let cr =  Math.floor(Math.random()*256);
-  let cg =  Math.floor(Math.random()*256);
-  let cb =  Math.floor(Math.random()*256);
-  let rgb =  "rgb("+ cr + ","+ cg + "," + cb +")";
-  bg.style.backgroundColor = rgb;
-  // let num = rgb.split(",");
-  // num[0] = num[0].substring(4);
+  <div id="bg"></div>
+  <div class="A">
+    <button id="r">R</button>
+    <input type="range" id="rlaba" min="0" max="255">
+  </div>
+  <div class="B">
+    <button id="g">G</button>
+    <input type="range" id="glaba" min="0" max="255">
+  </div>
+  <div class="C">
+    <button id="b">B</button>
+    <input type="range" id="blaba" min="0" max="255">
+  </div>
+  <div class="D">
+    <button id="add">+</button>
+    <button id="desc">-</button>
+    <button id="rand">?</button>
 
+  </div>
+  <script>
+    let bg = document.getElementById("bg");
+    let cr = Math.floor(Math.random() * 256);
+    let cg = Math.floor(Math.random() * 256);
+    let cb = Math.floor(Math.random() * 256);
+    bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
+    bg.innerHTML = "#"+cr.toString(16).toUpperCase()+cg.toString(16).toUpperCase()+cb.toString(16).toUpperCase();
+    document.getElementById("rlaba").value = cr ;
+    document.getElementById("glaba").value = cg ;
+    document.getElementById("blaba").value = cb ;
+    r.onclick = changeColor;
+    g.onclick = changeColor;
+    b.onclick = changeColor;
+    rlaba.onchange = labachgColor;
+    glaba.onchange = labachgColor;
+    blaba.onchange = labachgColor;
 
-  r.onclick=changeColor;
-  g.onclick=changeColor;
-  b.onclick=changeColor;
-
-
-  function changeColor(e){
-    let str = prompt("請輸入一個0~255的數值");
-    if (str >= 0 && str <= 255){
-      let newcr = cr,newcg = cg , newcb = cb;
-      let newrgb =  "rgb("+ newcr + ","+ newcg + "," + newcb +")";
-      if(e.path[0].id === "r") {
-        let newrgb = "rgb("+ str + ","+ newcg + "," + newcb +")";
+    function changeColor(e) {
+      let str;
+      do {
+        str = prompt("請輸入一個0~255的數值");
+        if(!str){
+          return;
+        }
+      } while (str < 0 || str > 255);
+      if (e.path[0].id === "r"){
+        cr = str;
+        document.getElementById("rlaba").value = cr;
       }
-      if(e.path[0].id === "g") bg.style.backgroundColor =  "rgb(" + cr + "," + str + "," + cb + ")";
-      if(e.path[0].id === "b") bg.style.backgroundColor =  "rgb(" + cr + "," + cg + "," + str + ")";
-      bg.style.backgroundColor = newrgb;
-    }else{
-      e.onclick = changeColor;
+      if (e.path[0].id === "g"){
+        cg = str;
+        document.getElementById("glaba").value = cg;
+      }
+      if (e.path[0].id === "b"){
+        cb = str;
+        document.getElementById("blaba").value = cb;
+      }
+      bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
+      bg.innerHTML = "#"+parseInt(cr).toString(16).toUpperCase()+parseInt(cg).toString(16).toUpperCase()+parseInt(cb).toString(16).toUpperCase();
     }
-    
-  }
 
+    function labachgColor(e) {
+      if (e.path[0].id === "rlaba") cr = e.path[0].value;
+      if (e.path[0].id === "glaba") cg = e.path[0].value;
+      if (e.path[0].id === "blaba") cb = e.path[0].value;
+      bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
+      bg.innerHTML = "#"+parseInt(cr).toString(16).toUpperCase()+parseInt(cg).toString(16).toUpperCase()+parseInt(cb).toString(16).toUpperCase();
+    }
 
+  </script>
 
-</script>
-  
 </body>
+
 </html>
