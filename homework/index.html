@@ -54,12 +54,14 @@
     document.getElementById("rlaba").value = cr ;
     document.getElementById("glaba").value = cg ;
     document.getElementById("blaba").value = cb ;
-    r.onclick = changeColor;
-    g.onclick = changeColor;
-    b.onclick = changeColor;
-    rlaba.onchange = labachgColor;
-    glaba.onchange = labachgColor;
+    document.getElementById("r").onclick = changeColor;
+    document.getElementById("g").onclick = changeColor;
+    document.getElementById("b").onclick = changeColor;
+    document.getElementById("rlaba").onchange = labachgColor;
+    document.getElementById("glaba").onchange = labachgColor;
+    document.getElementById("blaba").onchange = labachgColor;
     blaba.onchange = labachgColor;
+
 
     function changeColor(e) {
       let str;
