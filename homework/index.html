@@ -60,7 +60,35 @@
     document.getElementById("rlaba").onchange = labachgColor;
     document.getElementById("glaba").onchange = labachgColor;
     document.getElementById("blaba").onchange = labachgColor;
+    document.getElementById("add").onmousedown = loop;
+    document.getElementById("desc").onmousedown = loop;
+    document.getElementById("rand").onmousedown = adjustColor;
 
+    function loop(e){
+      let re = setInterval(adjustColor(e.path[0].id),500);
+    }
+
+    function adjustColor(){
+      switch (e.path[0].id){
+        case "add":
+        cr++ >= 256 ? cr = 255 : cr++;
+        document.getElementById("rlaba").value = cr;
+        cg++ >= 256 ? cg = 255 : cg++;
+        document.getElementById("glaba").value = cg;
+        cb++ >= 256 ? cb = 255 : cb++;
+        document.getElementById("blaba").value =cb;
+        break;
+        case "desc":
+        cr = document.getElementById("rlaba").value-1;
+        cg = document.getElementById("glaba").value-1;
+        cb = document.getElementById("blaba").value-1;
+        break;
+        case "rand":
+        break;
+      }
+      bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
+      bg.innerHTML = "#"+cr.toString(16).toUpperCase()+cg.toString(16).toUpperCase()+cb.toString(16).toUpperCase();
+    }
 
     function changeColor(e) {
       let str;
