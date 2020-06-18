@@ -60,32 +60,36 @@
     document.getElementById("rlaba").onchange = labachgColor;
     document.getElementById("glaba").onchange = labachgColor;
     document.getElementById("blaba").onchange = labachgColor;
-    document.getElementById("add").onmousedown = loop;
-    document.getElementById("desc").onmousedown = loop;
+    document.getElementById("add").onmousedown = adjustColor;
+ 
+    document.getElementById("desc").onmousedown = adjustColor;
     document.getElementById("rand").onmousedown = adjustColor;
 
-    function loop(e){
-      let re = setInterval(adjustColor(e.path[0].id),500);
-    }
+    
 
-    function adjustColor(){
+  
+
+    function adjustColor(e){
       switch (e.path[0].id){
         case "add":
-        cr++ >= 256 ? cr = 255 : cr++;
-        document.getElementById("rlaba").value = cr;
-        cg++ >= 256 ? cg = 255 : cg++;
-        document.getElementById("glaba").value = cg;
-        cb++ >= 256 ? cb = 255 : cb++;
-        document.getElementById("blaba").value =cb;
+        cr+1 > 255 ? cr = 255 : cr++;
+        cg+1 > 255 ? cg = 255 : cg++;
+        cb+1 > 255 ? cb = 255 : cb++;
         break;
         case "desc":
-        cr = document.getElementById("rlaba").value-1;
-        cg = document.getElementById("glaba").value-1;
-        cb = document.getElementById("blaba").value-1;
+        cr-1 < 0 ? cr = 0 : cr--;
+        cg-1 < 0 ? cg = 0 : cg--;
+        cb-1 < 0 ? cb = 0 : cb--;
         break;
         case "rand":
+        cr = Math.floor(Math.random() * 256);
+        cg = Math.floor(Math.random() * 256);
+        cb = Math.floor(Math.random() * 256);
         break;
       }
+      document.getElementById("rlaba").value = cr;
+      document.getElementById("glaba").value = cg;
+      document.getElementById("blaba").value = cb;
       bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
       bg.innerHTML = "#"+cr.toString(16).toUpperCase()+cg.toString(16).toUpperCase()+cb.toString(16).toUpperCase();
     }
