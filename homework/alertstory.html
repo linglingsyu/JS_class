@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <!-- function gameplay() {
+    1. prompt: 遊戲說明並取得 NAME=xxx，回饋訊息顯示；
+    2. confirm: 詢問用戶 XXX 是否要進行遊戲，回饋訊息顯示；
+      - TRUE:
+        if(qus（問題內容，好訊息，壞訊息，T/F)) return;
+        恭喜成功；
+      - FALSE:
+        不想玩就 881;
+  }
+  
+  
+  
+  function qus（問題，好，壞，布林）{
+    1. confirm: 顯示題目取得 TorF==布林
+      - TRUE: 顯示好訊息
+      - FALSE: 顯示壞訊息 return TRUE;
+  }
+  gameplay(); -->
+  <script>
+    gameplay()
+    function gameplay(){
+      //要不要開始遊戲
+      if(!confirm("你即將開始遊戲")){
+          return ;
+      }
+      //詢問名稱
+      let name = prompt("請輸入您的大名","含總機");
+      if(name != null){
+
+      }else{
+        name = "漢堡";
+        alert(`那你就叫${name}吧！`);
+      }
+
+      function q(q,gmsg,bmsg,blo){
+        
+      }
+
+      
+    }
+
+
+
+
+
+
+
+    
+
+
+
+
+  </script>
+</body>
+</html>
+
+
