@@ -1,48 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    html,body{
+      height: 100%;
+    }
+
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
     #bg {
-      width: 500px;
-      height: 300px;
-      border: 1px solid #000;
-      font-size:36px;
-      line-height: 300px;
+      width: 800px;
+      height: 400px;
+      border: 3px solid #000;
+      font-size: 72px;
+      line-height: 400px;
       text-align: center;
     }
 
     button {
       margin: 5px;
       padding: 5px;
-      width: 50px;
+      width: 200px;
       height: 50px;
+    }
+    input{
+      width: 100%;
+    }
+
+    .A,.B,.C{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .A{
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
   <div id="bg"></div>
-  <div class="A">
-    <button id="r">R</button>
+  <div class="A">R
+    <button id="r">按我輸入紅色</button>
     <input type="range" id="rlaba" min="0" max="255">
   </div>
-  <div class="B">
-    <button id="g">G</button>
+  <div class="B">G
+    <button id="g">按我輸入綠色</button>
     <input type="range" id="glaba" min="0" max="255">
   </div>
-  <div class="C">
-    <button id="b">B</button>
+  <div class="C">B
+    <button id="b">按我輸入藍色</button>
     <input type="range" id="blaba" min="0" max="255">
   </div>
   <div class="D">
-    <button id="add">+</button>
-    <button id="desc">-</button>
-    <button id="rand">?</button>
-
+    <button id="add">同步+1</button>
+    <button id="desc">同步-1</button>
+    <button id="rand">隨機背景色</button>
   </div>
   <script>
     let bg = document.getElementById("bg");
@@ -50,10 +72,11 @@
     let cg = Math.floor(Math.random() * 256);
     let cb = Math.floor(Math.random() * 256);
     bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
-    bg.innerHTML = "#"+cr.toString(16).toUpperCase()+cg.toString(16).toUpperCase()+cb.toString(16).toUpperCase();
-    document.getElementById("rlaba").value = cr ;
-    document.getElementById("glaba").value = cg ;
-    document.getElementById("blaba").value = cb ;
+    bg.innerHTML = "#" + chk0(cr.toString(16).toUpperCase()) + chk0(cg.toString(16).toUpperCase()) + chk0(cb.toString(16).toUpperCase());
+    bg.style.color = "#" + (255-cr).toString(16).toUpperCase() + (255-cg).toString(16).toUpperCase() + (255-cb).toString(16).toUpperCase();
+    document.getElementById("rlaba").value = cr;
+    document.getElementById("glaba").value = cg;
+    document.getElementById("blaba").value = cb;
     document.getElementById("r").onclick = changeColor;
     document.getElementById("g").onclick = changeColor;
     document.getElementById("b").onclick = changeColor;
@@ -61,69 +84,75 @@
     document.getElementById("glaba").onchange = labachgColor;
     document.getElementById("blaba").onchange = labachgColor;
     document.getElementById("add").onmousedown = adjustColor;
- 
     document.getElementById("desc").onmousedown = adjustColor;
     document.getElementById("rand").onmousedown = adjustColor;
 
-    
-
-  
-
-    function adjustColor(e){
-      switch (e.path[0].id){
+// +1 -1 random
+    function adjustColor(e) {
+      switch (e.path[0].id) {
         case "add":
-        cr+1 > 255 ? cr = 255 : cr++;
-        cg+1 > 255 ? cg = 255 : cg++;
-        cb+1 > 255 ? cb = 255 : cb++;
-        break;
+          (parseInt(cr) + 1) >= 255 ? cr = 255 : cr++;
+          (parseInt(cg)+ 1) >= 255 ? cg = 255 : cg++;
+          (parseInt(cb) + 1) >= 255 ? cb = 255 : cb++;
+          break;
         case "desc":
-        cr-1 < 0 ? cr = 0 : cr--;
-        cg-1 < 0 ? cg = 0 : cg--;
-        cb-1 < 0 ? cb = 0 : cb--;
-        break;
+          (parseInt(cr) - 1) <= 0 ? cr = 0 : cr--;
+          (parseInt(cg) - 1) <= 0 ? cg = 0 : cg--;
+          (parseInt(cb) - 1) <= 0 ? cb = 0 : cb--;
+          break;
         case "rand":
-        cr = Math.floor(Math.random() * 256);
-        cg = Math.floor(Math.random() * 256);
-        cb = Math.floor(Math.random() * 256);
-        break;
+          cr = Math.floor(Math.random() * 256);
+          cg = Math.floor(Math.random() * 256);
+          cb = Math.floor(Math.random() * 256);
+          break;
       }
       document.getElementById("rlaba").value = cr;
       document.getElementById("glaba").value = cg;
       document.getElementById("blaba").value = cb;
       bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
-      bg.innerHTML = "#"+cr.toString(16).toUpperCase()+cg.toString(16).toUpperCase()+cb.toString(16).toUpperCase();
+      bg.innerHTML = "#" + chk0(cr.toString(16).toUpperCase()) + chk0(cg.toString(16).toUpperCase()) + chk0(cb.toString(16).toUpperCase());
+      bg.style.color = "#" + (255-cr).toString(16).toUpperCase() + (255-cg).toString(16).toUpperCase() + (255-cb).toString(16).toUpperCase();
     }
 
+//補0
+    function chk0(num) {
+      return (num.length < 2) ? "0" + num : num;
+    }
+
+//input text
     function changeColor(e) {
       let str;
       do {
         str = prompt("請輸入一個0~255的數值");
-        if(!str){
+        if (!str) {
           return;
         }
       } while (str < 0 || str > 255);
-      if (e.path[0].id === "r"){
+      if (e.path[0].id === "r") {
         cr = str;
         document.getElementById("rlaba").value = cr;
       }
-      if (e.path[0].id === "g"){
+      if (e.path[0].id === "g") {
         cg = str;
         document.getElementById("glaba").value = cg;
       }
-      if (e.path[0].id === "b"){
+      if (e.path[0].id === "b") {
         cb = str;
         document.getElementById("blaba").value = cb;
       }
       bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
-      bg.innerHTML = "#"+parseInt(cr).toString(16).toUpperCase()+parseInt(cg).toString(16).toUpperCase()+parseInt(cb).toString(16).toUpperCase();
+      bg.innerHTML = "#" + chk0(parseInt(cr).toString(16).toUpperCase()) + chk0(parseInt(cg).toString(16).toUpperCase()) + chk0(parseInt(cb).toString(16).toUpperCase());
+      bg.style.color = "#" + (255-cr).toString(16).toUpperCase() + (255-cg).toString(16).toUpperCase() + (255-cb).toString(16).toUpperCase();
     }
 
+//input range
     function labachgColor(e) {
       if (e.path[0].id === "rlaba") cr = e.path[0].value;
       if (e.path[0].id === "glaba") cg = e.path[0].value;
       if (e.path[0].id === "blaba") cb = e.path[0].value;
       bg.style.backgroundColor = "rgb(" + cr + "," + cg + "," + cb + ")";
-      bg.innerHTML = "#"+parseInt(cr).toString(16).toUpperCase()+parseInt(cg).toString(16).toUpperCase()+parseInt(cb).toString(16).toUpperCase();
+      bg.innerHTML = "#" + chk0(parseInt(cr).toString(16).toUpperCase()) + chk0(parseInt(cg).toString(16).toUpperCase()) + chk0(parseInt(cb).toString(16).toUpperCase());
+      bg.style.color = "#" + (255-cr).toString(16).toUpperCase() + (255-cg).toString(16).toUpperCase() + (255-cb).toString(16).toUpperCase();
     }
 
   </script>
