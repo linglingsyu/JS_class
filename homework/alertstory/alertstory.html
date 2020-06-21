@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+
+
+
+  <script>
+
+    catchname();
+    function catchname() {
+      Swal.fire({
+        title: "預言者：感謝您經過一番奮鬥，終於來到魔王宮殿前，現在必須接受考驗越過五道門，才能深入最裡面的房間打倒魔王。",
+        text: "只見魔王宮殿大門緊閉，旁邊有個按鈕，門前佇立一塊墓碑，上面記載著許許多多的名字，此時預言者使用心靈傳輸，您耳邊響起絲絲言語，「如果要打開大門，只能用鮮血寫下您的大名……」",
+        input: "text",
+        inputValue: "含總機",
+        // showLoaderOnConfirm:true,
+        showCancelButton: true,
+        confirmButtonText: "在墓碑上留下血書",
+        cancelButtonText: "有病才會在墓碑寫名字，你按下了按鈕",
+        imageUrl: "img/00.png",
+        imageHeight: 200,
+        allowOutsideClick: false,
+      }).then((res) => {
+        if (res.dismiss === "cancel") {
+          name = "KOREA-FISH",
+            Swal.fire({
+              title: "你按下按鈕觸發了機關，一陣狂風將你吹往墓碑，頭狠狠砸在墓碑上噴出一道鮮血，接著大門緩緩開啟",
+              text: `魔王宮殿突然傳出一道詭異的聲音……「那就叫你【封城秀急·${name}】吧！」`,
+              confirmButtonText: "你心下幹了魔王一萬次，頭破血流的前進",
+              allowOutsideClick: false,
+              imageUrl: "img/01.png",
+              imageHeight: 200
+            }).then(gamestart);
+
+        } else {
+          name = res.value;
+          Swal.fire({
+            title: `此時大門緩緩開啟，魔王宮殿突然傳出一道詭異的聲音……「安安你好${name}，那請進吧。」`,
+            text: "你舉起手中勇者之劍，戰戰競競的走進大門",
+            confirmButtonText: "你小心謹慎地前進",
+            allowOutsideClick: false,
+            imageUrl: "img/01.png",
+            imageHeight: 200
+          }).then(gamestart);
+        }
+      })
+    }
+
+    function gamestart() {
+      Swal.fire({
+        title: "你進入了宮殿內部，發現一進門有個通往附近城鎮的傳送陣，要不要再回去多做些準備呢？",
+        text: "魔音：大門已經開啟，你可以隨時回來……大王很樂意你來送死……",
+        // showLoaderOnConfirm:true,
+        showCancelButton: true,
+        confirmButtonText: "好個狂妄的魔王，我還不砍死你",
+        cancelButtonText: "剛忘記帶藥了，順便吃碗豆花再回來吧",
+        imageUrl: "img/02.png",
+        imageHeight: 200,
+        allowOutsideClick: false,
+      }).then((res) => {
+        if (res.dismiss !== "cancel") {
+          Swal.fire({
+            title: "第一扇大門：人魚戀",
+            text: "你進入大門，眼前出現一片廣闊的大海，而海灘上竟然有一隻美人魚，她告訴你她在這等著她的愛人，但已10年都沒有消息，由於自己只要一上岸就會法力盡失而淪為凡人並很快地死去，請你幫她找到愛人Ａ，但當你到Ａ住的村莊後發現此村莊痛恨著人魚，而Ａ已被活活囚禁而死，你回到大門前，是否要將Ａ已死的消息告知人魚呢？",
+            // showLoaderOnConfirm:true,
+            showCancelButton: true,
+            confirmButtonText: "告訴她，讓她面對現實吧",
+            cancelButtonText: "太殘忍了，不告訴她",
+            allowOutsideClick: false,
+          }).then((res) => {
+            //第一關確定
+            if (res.dismiss !== "cancel") {
+              var ans_q1 = "yes";
+              Swal.fire({
+                title: "你將A已死的事實告訴人魚。",
+                text: "只見人魚頓時淚流滿面，但一會兒人魚將一顆靈珠交給了你，說到：「謝謝你！我將部分法力給你，希望對你打倒魔王有幫助！」",
+                confirmButtonText: "你收下了人魚給的靈珠",
+                allowOutsideClick: false,
+              }).then((res) => {
+                Swal.fire({
+                  title: "服下靈珠，你頓時覺得全身的力量又更強大了",
+                  text: "此時人魚竟上了岸，化身為一名超級大正妹，哭著笑說再次感謝你的幫助，她要去Ａ的埋葬地，葬在他的身邊陪著他一生一世，隨即在你的眼前消失了。",
+                  confirmButtonText: "你懷著悵然若失的心情前往下一道門",
+                  allowOutsideClick: false,
+                })
+              })
+            } else {
+              //第一關取消
+              var ans_q1 = "no";
+              Swal.fire({
+                title: "你告訴人魚：A回到村莊後便與其他村民出海討罰海怪了，聽說最近海怪已被消滅，A很快就可以來找她",
+                text: "人魚非常開心，並拿出一把人魚豎琴交給你：「非常謝謝你的幫忙，這把豎琴是人魚族的神器，只要站著彈奏5秒不間斷，就可以回復血量，相信對你打魔王會很有幫助！」",
+                confirmButtonText: "你收下了人魚給的豎琴",
+                allowOutsideClick: false,
+              }).then((res) => {
+                Swal.fire({
+                  title: "你將豎琴交給了隊伍內的補師，學會了群體復活，隊伍的實力又更上一層樓了！",
+                  text: "望著人魚如此動人美麗的笑容，你心想：也許再過幾年人魚就會放棄，暫時給她個美好的寄託吧！",
+                  confirmButtonText: "你似乎感染了人魚的愉悅心情前往下一道門",
+                  allowOutsideClick: false,
+                })
+              })
+            }
+            //第二關開始
+            Swal.fire({
+              title: "第二道大門：",
+              text: "你進入第二道大門，看見遠方第三道大門正開著，但一名女子正被幾百隻魔獸團團圍繞著，似乎陷入苦戰，你是否要救她？",
+              // showLoaderOnconfirm: true,
+              showCancelButton: true,
+              confirmButtonText: "是妹！救她",
+              cancelButtonText: "太麻煩了，不救她",
+              allowOutsideClick: false,
+            }).then((res) => {
+              //不救
+              if (res.dismiss === "cancel") {
+                var ans_q2="no";
+                Swal.fire({
+                  title: "幾百隻魔獸要打到民國幾年？何況這裡怎麼會有凡人在此？一定是陷阱！",
+                  text: "隊伍投票決定不理會這名女子，快速往第三道門的方向前進。女子無言，怎麼會有這麼狠心的冒險者！隨即遭魔獸殺害，因為對勇者懷恨在心，鬼魂跟著你們一行人進了第三道門",
+                  allowOutsideClick: false,
+                  confirmButtonText: "前往下一道門",
+                })
+              } else {
+                //救
+                var ans_q2="yes";
+                Swal.fire({
+                  title: "幾百隻魔獸要打到民國幾年？何況這裡怎麼會有凡人在此？難道是陷阱？",
+                  text: "雖然有可能是陷阱，但你是善良的冒險者，怎麼能見死不救！激戰了一番，魔獸數量實在太多，隊伍漸漸落了下風，此時突然一顆大火球砸來，形成巨大火海將魔獸燒個精光。",
+                  allowOutsideClick: false,
+                  confirmButtonText: "發生了什麼事？",
+                }).then((res) => {
+                  Swal.fire({
+                    title: "新夥伴的加入",
+                    text: "原來這名女子是有名的達拉然法師，珍娜！你邀請珍娜加入隊伍，珍娜開心的答應了",
+                    allowOutsideClick: false,
+                    confirmButtonText: "前往下一道門",
+                  })
+                })
+              }
+            })
+          //第三關開始
+          Swal.fire({
+            title:""
+          }).then();
+
+
+          })
+        } else {
+          // 結束遊戲
+        }
+      });
+    }
+
+
+    function q2() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
