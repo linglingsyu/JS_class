@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredericka the Great', cursive;
+      padding: 0;
+    }
+    /* .circel{
+      width: 100px;
+      height: 100px;
+
+    } */
+    .time {
+      /* position: absolute;
+      margin-left: 50%;
+      top: 40%;
+      transform: translate(-50%); */
+      position: relative;
+      font-size: 60px;
+      border-bottom:1px solid #000;
+      padding-bottom:5px;
+      display: inline-block;
+      width: 310px;
+    }
+
+    .dot{
+      position: absolute;
+      bottom: -3px;
+      width: 10px;
+      height: 5px;
+      background-color:red;
+      animation: dot 60s linear infinite ;
+    }
+
+    @keyframes dot {
+      0%{
+        background-color: aqua;
+        left:0;
+      }
+      100%{
+        left:310px;
+        background-color: blue;
+      }
+    }
+
+  
+  </style>
+</head>
+
+<body>
+  <div class="div">
+    <div class="circel">
+      <div class="time">
+          <span class="hour"></span>
+          <span class="sign">:</span>
+          <span class="min"></span>
+          <span class="sign2">:</span>
+          <span class="sec"></span>
+          <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    setInterval(whatisTime, 1000);
+    whatisTime();
+    function whatisTime() {
+      let now = new Date();
+      let year = now.getFullYear();
+      let month = now.getMonth() + 1;
+      let day = now.getDate();
+      let week = now.getDay(); //星期幾
+      let hour = now.getHours();
+      let min = now.getMinutes();
+      let sec = now.getSeconds();
+      document.querySelector(".hour").textContent = add0(hour) 
+      document.querySelector(".min").textContent = add0(min);
+      document.querySelector(".sec").textContent = add0(sec);
+      document.querySelector(".sign").style.opacity = 1;
+      document.querySelector(".sign2").style.opacity = 1;
+      setTimeout(sign,500);
+    }
+
+    function sign(){
+      document.querySelector(".sign").style.opacity = 0;
+      document.querySelector(".sign2").style.opacity = 0;
+    }
+    
+    function add0(e) {
+      if (e < 10) {
+        return ("0" + e);
+      } else {
+        return e;
+      }
+    }
+
+    function dot(){
+      let dot = document.querySelector(".dot");
+      dot.style.animation
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>
