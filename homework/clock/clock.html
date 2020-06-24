@@ -7,47 +7,40 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Fredericka the Great', cursive;
-      padding: 0;
-    }
-    /* .circel{
-      width: 100px;
-      height: 100px;
 
-    } */
+    body {
+      margin:0;
+      padding:0;
+      font-family: 'Fredericka the Great', cursive;
+      height: 100vh;
+      padding: 0;
+      background: url(123.jpg) no-repeat 50% 50% #f5f5ed;
+      background-size:contain;
+    }
+
     .time {
-      /* position: absolute;
-      margin-left: 50%;
-      top: 40%;
-      transform: translate(-50%); */
-      position: relative;
-      font-size: 60px;
-      border-bottom:1px solid #000;
-      padding-bottom:5px;
       display: inline-block;
       width: 310px;
+      margin-top: 10px;
     }
 
-    .dot{
+    .wrap{
       position: absolute;
-      bottom: -3px;
-      width: 10px;
-      height: 5px;
-      background-color:red;
-      animation: dot 60s linear infinite ;
+      margin-left: 40%;
+      margin-top:7%;
+      font-size: 24px;
     }
 
-    @keyframes dot {
-      0%{
-        background-color: aqua;
-        left:0;
-      }
-      100%{
-        left:310px;
-        background-color: blue;
-      }
+    .div{
+      position: relative;
+      /* background-color: #eee; */
+      /* width: 1500px;
+      height: 800px; */
+      /* background: url(bg-2.png) no-repeat right bottom ;
+      background-size:30%; */
     }
+ 
+
 
   
   </style>
@@ -55,7 +48,15 @@
 
 <body>
   <div class="div">
-    <div class="circel">
+    <div class="wrap">
+      <div class="date">
+        <span class="year"></span>
+        <span>-</span>
+        <span class="mon"></span>
+        <span>-</span>
+        <span class="day"></span>
+        <span class="week"></span>
+      </div>
       <div class="time">
           <span class="hour"></span>
           <span class="sign">:</span>
@@ -65,12 +66,18 @@
           <div class="dot"></div>
       </div>
     </div>
+    <div class="wrap2">
+      <div><img src="play-solid.svg" width="30px" height="30px"></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 
   <script>
     setInterval(whatisTime, 1000);
     whatisTime();
     function whatisTime() {
+      let arr = ["SUN","MON","TUE","WED","TUE","FRI","SAT"]
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;
@@ -79,7 +86,11 @@
       let hour = now.getHours();
       let min = now.getMinutes();
       let sec = now.getSeconds();
-      document.querySelector(".hour").textContent = add0(hour) 
+      document.querySelector(".year").textContent = year;
+      document.querySelector(".mon").textContent = add0(month);
+      document.querySelector(".day").textContent = add0(day);
+      document.querySelector(".week").textContent = arr[week];
+      document.querySelector(".hour").textContent = add0(hour);
       document.querySelector(".min").textContent = add0(min);
       document.querySelector(".sec").textContent = add0(sec);
       document.querySelector(".sign").style.opacity = 1;
