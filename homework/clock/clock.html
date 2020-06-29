@@ -7,15 +7,12 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
   <style>
-
     body {
-      margin:0;
-      padding:0;
+      margin: 0;
+      padding: 0;
       font-family: 'Fredericka the Great', cursive;
       height: 100vh;
       padding: 0;
-      background: url(123.jpg) no-repeat 50% 50% #f5f5ed;
-      background-size:contain;
     }
 
     .time {
@@ -24,25 +21,41 @@
       margin-top: 10px;
     }
 
-    .wrap{
-      position: absolute;
+    .wrap {
       margin-left: 40%;
-      margin-top:7%;
+      margin-top: 7%;
       font-size: 24px;
     }
 
-    .div{
+    .div {
       position: relative;
-      /* background-color: #eee; */
-      /* width: 1500px;
-      height: 800px; */
-      /* background: url(bg-2.png) no-repeat right bottom ;
-      background-size:30%; */
     }
- 
 
+    .wrap2 {
+      margin-left: 40%;
+      margin-top: 15%;
+      font-size: 24px;
 
-  
+    }
+
+    input[type="number"] {
+      width: 10%;
+      height: 20%;
+      font-size: 3rem;
+      background-color: transparent;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .control {
+      display: flex;
+    }
+
+    .control button {
+      margin: 0 3px;
+      padding: 6px;
+
+    }
   </style>
 </head>
 
@@ -58,18 +71,22 @@
         <span class="week"></span>
       </div>
       <div class="time">
-          <span class="hour"></span>
-          <span class="sign">:</span>
-          <span class="min"></span>
-          <span class="sign2">:</span>
-          <span class="sec"></span>
-          <div class="dot"></div>
+        <span class="hour"></span>
+        <span class="sign">:</span>
+        <span class="min"></span>
+        <span class="sign2">:</span>
+        <span class="sec"></span>
+        <div class="dot"></div>
       </div>
     </div>
     <div class="wrap2">
-      <div><img src="play-solid.svg" width="30px" height="30px"></div>
-      <div></div>
-      <div></div>
+      <div><input type="number" id="m" value="0" min="0">：<input type="number" id="s" value="30" min="0"></div>
+      <div class="control">
+        <div><button onclick="stop()"><img src="pause-solid.svg" width="30px" height="30px"></button></div>
+        <div><button onclick="add30()"><img src="plus-solid.svg" width="30px" height="30px"></button></div>
+        <div><button onclick="counter()"><img src="play-solid.svg" width="30px" height="30px"></button></div>
+        <div><button onclick="desc30()"><img src="minus-solid.svg" width="30px" height="30px"></button></div>
+      </div>
     </div>
   </div>
 
@@ -77,7 +94,7 @@
     setInterval(whatisTime, 1000);
     whatisTime();
     function whatisTime() {
-      let arr = ["SUN","MON","TUE","WED","TUE","FRI","SAT"]
+      let arr = ["SUN", "MON", "TUE", "WED", "TUE", "FRI", "SAT"]
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;
@@ -95,14 +112,14 @@
       document.querySelector(".sec").textContent = add0(sec);
       document.querySelector(".sign").style.opacity = 1;
       document.querySelector(".sign2").style.opacity = 1;
-      setTimeout(sign,500);
+      setTimeout(sign, 500);
     }
 
-    function sign(){
+    function sign() {
       document.querySelector(".sign").style.opacity = 0;
       document.querySelector(".sign2").style.opacity = 0;
     }
-    
+
     function add0(e) {
       if (e < 10) {
         return ("0" + e);
@@ -111,10 +128,63 @@
       }
     }
 
-    function dot(){
-      let dot = document.querySelector(".dot");
-      dot.style.animation
+
+
+    
+    document.getElementById("m").value = add0(document.getElementById("m").value)
+    document.getElementById("s").value = add0(document.getElementById("s").value)
+
+    function counter() {
+      let min = document.getElementById("m").value;
+      let sec = document.getElementById("s").value;
+      let time = parseInt(min) * 60 + parseInt(sec);
+      time--;
+      if (time <= 0) {
+        document.getElementById("s").value = add0(Math.floor(time % 60));
+        setTimeout(()=>{
+          alert("時間到了！");
+        },0) 
+        location.reload();
+      } else {
+        document.getElementById("s").value = add0(Math.floor(time % 60));
+        document.getElementById("m").value = add0(Math.floor(time / 60));
+        c = setTimeout(counter, 1000);
+      }
     }
+
+    function stop() {
+      clearTimeout(c);
+    }
+
+    function add30() {
+      let min = document.getElementById("m").value;
+      let sec = document.getElementById("s").value;
+      let time = parseInt(min) * 60 + parseInt(sec);
+      time+=30;
+      document.getElementById("s").value = add0(Math.floor(time % 60));
+      document.getElementById("m").value = add0(Math.floor(time / 60));
+    }
+    
+    function desc30() {
+      let min = document.getElementById("m").value;
+      let sec = document.getElementById("s").value;
+      let time = parseInt(min) * 60 + parseInt(sec);
+      time-=30;
+      if (time <= 0) {
+        time = 0;
+        document.getElementById("m").value = add0(Math.floor(time / 60));
+        document.getElementById("s").value = add0(Math.floor(time % 60));
+        stop();
+        setTimeout(()=>{
+          alert("時間到了！");
+        },0) 
+        location.reload();
+      } else {
+        document.getElementById("s").value = add0(Math.floor(time % 60));
+        document.getElementById("m").value = add0(Math.floor(time / 60));
+      }
+    }
+
 
 
 
