@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      position: relative;
+      margin:0;
+      padding:0;
+      height: 100vh;
+      background:#ffc0c0 url(bg.gif) no-repeat center center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .div{
+      width: 1000px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container{
+      width: 516px;
+      height: 515px;
+      border-radius: 50%;
+      position: absolute;
+      animation: sec 60s linear infinite;
+    }
+
+    .container2{
+      width: 516px;
+      height: 515px;
+      border-radius: 50%;
+      position: absolute;
+      animation: min 3600s linear infinite;
+    }
+
+    .container3{
+      width: 516px;
+      height: 515px;
+      border-radius: 50%;
+      position: absolute;
+      animation: hour 43200s linear infinite;
+    }
+
+    #move{
+      animation: move 20s linear infinite;
+    }
+
+    #sec,#min,#hour {
+      width: 28px;
+      height: 242px;
+      position: absolute;
+      left:50%;
+      margin-left: -12px;
+      top:50px;
+    }
+
+
+    #sec {
+      background: url(sec.gif) no-repeat;
+    }
+
+    #min {
+      background: url(min.gif) no-repeat;
+    }
+
+    #hour {
+      background: url(hour.gif) no-repeat;
+    }
+
+    .container4{
+      width: 539px;
+      height: 549px;
+      border-radius: 50%;
+      position: absolute;
+      animation: sec 30s linear infinite;
+    }
+
+
+ 
+  </style>
+</head>
+
+<body>
+  <div class="div">
+  <img src="bg-3.gif" id="move">
+  <div class="container">
+    <div id="sec"></div>
+  </div>
+  <div class="container2">
+    <div id="min"></div>
+  </div>
+  <div class="container3">
+    <div id="hour"></div>
+  </div>
+  <div class="container4">
+    <img src="bg2.gif" alt="">
+  </div>
+</div>
+</body>
+
+<script>
+
+let time = new Date();
+let sec = time.getSeconds();
+let min = time.getMinutes();
+let hour = time.getHours();
+
+let sec_start = sec * 6;
+let min_start = ((min * 60 )+ sec)*0.1 ;
+let hour_start =  ((hour * 60*60) +( min * 60 )+ sec)* 0.0083 ;
+
+document.write(`
+    <style>
+      @keyframes sec {
+      from {  
+        transform: rotate(${sec_start}deg); 
+        }
+      to { 
+        transform: rotate(${360 + sec_start}deg); 
+        }
+    }
+
+    @keyframes min {
+      from {  transform: rotate(${min_start}deg); }
+      to { transform: rotate(${min_start+ 360}deg); }
+    }
+
+    @keyframes hour { 
+      from {  transform: rotate(${hour_start }deg); }
+      to { transform: rotate(${hour_start  + 360}deg); }
+    }
+
+    // @keyframes bg {
+    //   from {transform: rotate(${sec_start}deg);  }
+    //   to { transform: rotate(${360 + sec_start}deg);  }
+    // }
+
+      @keyframes move { 
+      from {  transform: rotate(${360 + sec_start }deg); }
+      to { transform: rotate(${sec_start}deg); }
+    }
+
+    </style>
+  `);
+
+
+
+</script>
+
+</html>
