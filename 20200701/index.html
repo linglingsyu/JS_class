@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="content">
+    <div class="row">
+      <img src="yellow.png" class="cell" title="yellow" onclock="getCount(0)">
+      <img src="yellow.png" class="cell" title="yellow" onclock="getCount(1)">
+      <img src="yellow.png" class="cell" title="yellow" onclock="getCount(2)">
+    </div>
+    <div class="row">
+      <img src="yellow.png" class="cell" title="yellow">
+      <img src="yellow.png" class="cell" title="yellow">
+      <img src="yellow.png" class="cell" title="yellow">
+    </div>
+    <div class="row">
+      <img src="yellow.png" class="cell" title="yellow">
+      <img src="yellow.png" class="cell" title="yellow">
+      <img src="yellow.png" class="cell" title="yellow">
+    </div>
+    <div class="control">
+      <div class="msg">
+        <span id="time">剩餘時間：0s</span>
+        <button>遊戲開始</button>
+        <span id="combo">成績分數：0</span>
+      </div>
+      <hr>
+      <h3>遊戲說明</h3>
+      <p>當貓貓暈頭轉向時，請給小貓鼓勵讓她醒過來～</p>
+      <p>按下遊戲開始之後，請使用鍵盤數字1~9點擊畫面相對位置之紅色圖片進行得分(滿分100)</p>
+    </div>
+  </div>
+
+  <script>
+    //初始化設定
+    let btn = document.getElementsByTagName("button")[0];
+    btn.addEventListener("click", gamestart); // 規劃監聽有人click時觸發function
+    let time = document.getElementById("time"); //顯示時間的文字
+    let combo = document.getElementById("combo"); //顯示分數的文字標籤
+    let sec = 0, count = 0;  //紀錄數據的變數
+    let space = document.getElementsByClassName("cell"); //打地鼠的位置 
+    let beY = new Array;
+
+    function gamestart() {
+      btn.removeEventListener("click", gamestart); //暫時取消監聽click觸發function
+      sec = 60, count = 0;
+      time.textContent = "剩餘時間：60s";
+      combo.textContent = "成績分數：0";
+
+      //每秒畫面上的固定變化與遊戲按鈕操作限制
+      let timeRun = setInterval(() => {
+        if (sec == 0) {
+          clearInterval(timeRun);
+          btn.addEventListener("click", gamestart); //秒數歸0 再觸發監聽事件
+        } else {
+          sec--;
+          time.textContent = `剩餘時間:${sec}s`;
+        }
+      }, 1000);
+
+      // 100分要有100張圖片 在for的100次內,每一次都是獨立小動物的出場設定
+      for (let i = 0; i < 100; i++) {
+        let which = Math.floor(Math.random() * 9); //隨機0~8格位置
+        let onTime = Math.floor(Math.random() * 55000); //隨機出現時間點 0~54999ms (時間點用秒會撞很多,所以放大到毫秒)
+        let delay = Math.floor(Math.random() * 3) + 2;//出場停留時間 2~4秒   
+        setTimeout(() => { showit(which, delay, i) }, onTime);  //i代表是幾號貓貓 , 設定貓貓在遊戲時間內何時出現
+      }
+
+    }
+
+    //畫面上的變化，轉red事件
+    function showit(is_which, is_delay, is_id) {
+      if (space[is_which].title != "yellow") { //當該位置不是黃色時機時，要改位置或改時間
+        //改位置
+        // let new_which = is_which == 8 ? 0 : is_which+1;   //方法一
+        // let new_which = (is_which + 1) % 9 ;  // 123456789 => 123456780 方法二:取餘數
+        let new_which = Math.floor(Math.random() * 9) //方法三,重算!
+        //時間太快，滿格時會死掉，所以讓她延遲0.1秒
+        setTimeout(() => {
+          showit(new_which, is_delay, is_id);
+        }, 200);
+      } else {
+        space[is_which].src = "red.png";
+        space[is_which].style.background = "rgb(237, 80, 61)";
+        space[is_which].title = "red";
+        space[is_which].alt = is_id; //每張的圖片編號
+        //還沒敲的時候,自己收回去
+        beY[is_id] = setTimeout(() => {
+          space[is_which].src = "yellow.png";
+          space[is_which].removeAttribute("style");
+          space[is_which].title = "yellow";
+        }, is_delay * 1000)
+      }
+    }
+
+    //透過鍵盤事件，觸發getCount計算該位置是否得分
+    document.onkeydown = kbcode; //每次的鍵盤按下會執行function kncode
+    function kbcode() {
+      // console.log(event.keyCode);
+      switch (event.keyCode) {
+        case 103:getCount(0);  break;
+        case 104:getCount(1);  break;
+        case 105:getCount(2);  break;
+        case 100:getCount(3);  break;
+        case 101:getCount(4);  break;
+        case 102:getCount(5);  break;
+        case 97: getCount(6);  break;
+        case 98: getCount(7);  break;
+        case 99: getCount(8);  break;
+      }
+    }
+
+    //滑鼠點擊事件
+    for (let i=0 ; i<space.length; i++){
+      space[i].addEventListener("click",()=>{
+        getCount(i);
+      })
+    }
+
+    // red 轉 green
+    //item = 0~8
+    function getCount(item) {
+      // console.log(item);
+      //轉green
+      if(space[item].title == "red"){
+        space[item].src = "green.png";
+        space[item].style.background = "rgb(67, 190, 128)";
+        space[item].title = "green";
+        //得分
+        count++;
+        combo.textContent = `成績分數:${count}`;
+
+        //green 轉yellow (當用戶已敲時,自己收回去)
+        setTimeout(() => {
+          space[item].src = "yellow.png";
+          space[item].removeAttribute("style");
+          space[item].title = "yellow";
+        }, 1000);
+        
+        //清除原先未敲擊之恢復事件
+        id = space[item].alt; //先拿到這張圖片的編號
+        clearTimeout(beY[id]);
+        space[item].removeAttribute("alt");
+      }
+    }
+
+  </script>
+</body>
+
+</html>

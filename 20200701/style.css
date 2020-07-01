@@ -1,0 +1,44 @@
+body{
+  margin:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  background-color: rgb(252, 137, 137);
+}
+
+.content{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.control{
+  max-width: 500px;
+}
+
+.row{
+  background-color: rgb(250, 209, 209);
+  font-size: 0px;
+}
+
+.cell{
+  background-color: rgb(253, 242, 86);
+  border:5px solid #777;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.msg{
+  margin:10px auto;
+  display: flex;
+  justify-content: space-around;
+  line-height: 2rem;
+}
+
+span,button{
+  flex-basis: 33.3%;
+}
+
