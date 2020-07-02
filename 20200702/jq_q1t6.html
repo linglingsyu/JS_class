@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+  <div style="width:89%;text-align: center; height:480px;" class="dbor">
+    <span class="t botli">校園映象區</span>
+    <div>
+      <div style="display: flex;flex-direction: column;  align-items: center;" >
+      <img src="img/up.jpg" onclick="pp(1)">
+      <div id="list" style="display: flex;flex-direction: column;">
+        <!-- <img class="im" src="img/01D01.jpg" width="150" height="103" > -->
+      </div>
+      <img src="img/dn.jpg" onclick="pp(2)">
+    </div>
+    </div>
+    <script>
+      let nowpage = 0, num =0;
+      $.getJSON("data.json", function (res) {
+        todo(res.q1t6);
+      });
+
+      function todo(myjson){
+       for(let i =0;i<myjson.length;i++){
+         $("#list").append(`<img class="im" id="ssaa${i}" src="${myjson[i]}" width="150" height="103" >`)
+       }
+       $(".im").hide();
+      //初始化show前三張
+      $("#ssaa0,#ssaa1,#ssaa2").show();
+
+      //回存全域變數
+      num = myjson.length;
+      }
+    //全隱藏
+
+      function pp(x){
+        if(x==1 && nowpage > 0){ //按上一頁 : 讓圖片上跑的效果
+          nowpage--;
+          $(`#ssaa${nowpage}`).slideToggle();
+          $(`#ssaa${nowpage+3}`).slideToggle();
+        }
+        if(x==2 && nowpage < num-3){ //按下一頁： 讓圖片下跑的效果
+            nowpage++;
+            $(`#ssaa${nowpage}`).slideToggle();
+          $(`#ssaa${nowpage+3}`).slideToggle();
+        }
+      }
+
+
+
+
+
+
+      // var nowpage = 0, num = 0;
+      // function pp(x) {
+      //   var s, t;
+      //   if (x == 1 && nowpage - 1 >= 0) { nowpage--; }
+      //   if (x == 2 && (nowpage + 1) * 3 <= num * 1 + 3) { nowpage++; }
+      //   $(".im").hide()
+      //   for (s = 0; s <= 2; s++) {
+      //     t = s * 1 + nowpage * 1;
+      //     $("#ssaa" + t).show()
+      //   }
+      // }
+      // pp(1)
+    </script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+
+  <!--正中央-->
+  <div style="width:100%; padding:2px; height:290px;">
+    <div id="mwww" loop="true" style="width:100%; height:100%;">
+      <div style="width:99%; height:100%; position:relative;" class="cent">沒有資料</div>
+    </div>
+  </div>
+
+  <script>
+    $.getJSON("data.json", function (res) {
+      todo(res.q1t5);
+    });
+
+    function todo(myjason) {
+      var lin = myjason; // img 的資料
+      if (lin.length) {
+        //有資料才要替換html，先播一次第0張
+        $("#mwww").html("<embed loop=true src='" + lin[0] + "' style='width:99%; height:100%;'></embed>");
+
+        if (lin.length > 1) { // 兩筆以上要輪播
+          let now = 1  //3秒後從第1張開始
+          setInterval(() => {
+            $("#mwww").html("<embed loop=true src='" + lin[now] + "' style='width:99%; height:100%;'></embed>");
+          now = (now+1)%lin.length; /*輪播順序0123 => 1234 > 2340 */
+          }, 3000) //3秒輪播
+        }
+      }
+
+      // var now = 0;
+      // if (lin.length > 1) {
+      //   setInterval("ww()", 3000);
+      //   now = 1;
+      // }
+
+      // function ww() {
+      //   $("#mwww").html("<embed loop=true src='" + lin[now] + "' style='width:99%; height:100%;'></embed>")
+      //   //$("#mwww").attr("src",lin[now])
+      //   now++;
+      //   if (now >= lin.length)
+      //     now = 0;
+      // }
+
+    }
+
+  </script>
+
+
+
+</body>
+
+</html>
