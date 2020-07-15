@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+
+  <tr>
+    <td>
+      <input type="hidden" name="" value="1">
+      <input type="butoon" class="up" name="">
+      <input type="butoon" class="down" name="">
+    </td>
+  </tr>
+
+
+  <script>
+
+    $.getJSON('data.json',)
+
+    function todo(jsn) {
+      //creat DOM
+      for (const item of jsn) {
+        $("tbody").append{
+          `  
+          `
+        }
+      }
+    }
+
+    $("input:button").click(function () {
+      //this = 按下的那個按鈕
+      //button往上找到tr
+      let nodeSelf = $(this).parents("tr");
+      let nodeTarget = null;
+      switch (this.className) {
+        case "up":
+          //nodeTarget = 自己的前一個
+          nodeTarget = nodeSelf.prev();
+          //如果前一個有資料才進行交換(預防第一個沒有前一個的問題)
+          if (nodeTarget.length) {
+            //先找到自己hidden的value值，-１後再放回去
+            // valSelf = nodeSelf.find("input:hidden").val();
+            // valSelf--;
+            // nodeSelf.find("input:hidden").val(valSelf);
+            nodeSelf.find("input:hidden").val(function (index, value) {
+              return --value;
+              //retrun結束前先-1，如果用value--會return之後才-1，value值不會替換到
+            });
+
+            //先找到前一個hidden的value值，+１後再放回去
+            // valTar= nodeTarget.find("input:hidden").val();
+            // valTar--;
+            // nodeTarget.find("input:hidden").val(valTar);
+
+            nodeTarget.find("input:hidden").val(function (index, value) {
+              return ++value;
+            });
+
+            //兩個做交換
+            nodeSelf.insertBefore(nodeTarget);
+          }
+          break;
+        case "down":
+          nodeTarget = nodeSelf.next();
+          if (nodeTarget.length) {
+            nodeSelf.find("input:hidden").val(function (index, value) {
+              return ++value
+            });
+            nodeTarget.find("input:hidden").val(function (index, value) {
+              return --value;
+            });
+            //兩個做交換
+            nodeSelf.insertBefore(nodeTarget);
+          }
+          break;
+      }
+    });
+
+
+
+
+  </script>
+</body>
+
+</html>
