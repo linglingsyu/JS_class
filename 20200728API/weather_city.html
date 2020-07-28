@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+  <script src="jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+</head>
+<body>
+  <h1>臺灣北部地區一周天氣溫度</h1>
+  <div style="width:70%;">
+  <canvas id="myChart" width="3" height="2"></canvas></div>
+  <script>
+
+$.getJSON("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-D0047-091?Authorization=CWB-A44EF9D2-CCCB-45E8-8376-242DFC6F92D6&downloadType=WEB&format=JSON").done((data)=>{
+    let tp = data.cwbopendata.dataset.locations.location[16];
+    let nt =  data.cwbopendata.dataset.locations.location[18];
+    let kl = data.cwbopendata.dataset.locations.location[13];
+    let tu = data.cwbopendata.dataset.locations.location[21];
+
+    let p = new Array(),n = new Array(),k = new Array(), u = new Array() , timeline = new Array();
+    for(let i = 0; i < tp.weatherElement[0].time.length; i+=2){
+      //將溫度數值逐項塞入city陣列
+      p.push(tp.weatherElement[0].time[i].elementValue.value);
+      n.push(nt.weatherElement[0].time[i].elementValue.value);
+      k.push(kl.weatherElement[0].time[i].elementValue.value);
+      u.push(tu.weatherElement[0].time[i].elementValue.value);
+
+      //將時間文字塞住timeline
+      timeline.push(tp.weatherElement[0].time[i].startTime.substr(0,10));
+    }
+
+    let p_min = Math.min.apply(null,p); //P的最小值
+    let n_min = Math.min.apply(null,n);
+    let k_min = Math.min.apply(null,k);
+    let u_min = Math.min.apply(null,u);
+    //從上列的最小值中再找裡面的最小值
+    let findmin = Math.min.apply(null,[p_min,n_min,k_min,u_min]);
+    let findmax = Math.max.apply(null,[Math.max.apply(null,p),Math.max.apply(null,n),Math.max.apply(null,k),Math.max.apply(null,u)]);
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: timeline,
+          datasets: [
+            {
+              label:  nt.locationName,
+              data: n,
+              backgroundColor:'rgba(255, 99, 132, 0.2)',
+              borderColor:'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+          },
+          {
+              label: tp.locationName,
+              data: p,
+              backgroundColor:'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          },
+          {
+              label:  kl.locationName,
+              data: k,
+              backgroundColor:'rgba(255, 206, 86, 0.2)',
+              borderColor:'rgba(255, 206, 86, 1)',
+              borderWidth: 1
+          },
+          {
+              label:  tu.locationName,
+              data: u ,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+          }
+        ]
+      },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    // beginAtZero: false
+                    stepSize:0.5,
+                    min:findmin-1,
+                    max:findmax+1
+
+
+                }
+            }]
+        }
+    }
+  });
+
+
+}).fail(
+   ()=>{
+    console.log("fail");
+   }
+  );
+
+  </script>
+
+
+  <script>
+
+</script>
+</body>
+</html>
