@@ -15,8 +15,8 @@
   </style>
 </head>
 
-<body class="px-5 mx-5 my-1 d-flex">
-  <div class="container w-50">
+<body class="px-3 mx-3 my-1 d-flex">
+  <div class="w-50">
     <h1 class="text-center mb-3">台灣地區細懸浮微粒資料(PM2.5)</h1>
     <table id="myTable" class="table">
       <thead>
@@ -77,10 +77,11 @@
     for (let i= 1; i <= key.length ; i++){
       let r  = Math.floor(Math.random()*256) ,  g = Math.floor(Math.random()*256) ,  b  = Math.floor(Math.random()*256)
       str = `rgb(${r},${g},${b})`;
-      rgb.push(str)
+      rgb.push(str);
     }
     let copy = values.slice(0,values.length);
-    // console.log( Math.max(copy));
+    let max = Math.max.apply(null,copy);
+    let min = Math.min.apply(null,copy);
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
       type: 'pie',
@@ -98,7 +99,9 @@
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: false
+              beginAtZero: false,
+              max:max,
+              min:min
             }
           }]
         }
