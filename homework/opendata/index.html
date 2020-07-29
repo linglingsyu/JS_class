@@ -29,7 +29,7 @@
       </tbody>
     </table>
   </div>
-  <div class="w-25"><canvas id="myChart" width="3" height="2"></canvas></div>
+  <div class="w-50"><canvas id="myChart" width="3" height="2"></canvas></div>
 </body>
 
 <script>
@@ -52,34 +52,45 @@
         `;
       $("tbody").append(str);
       county.push(data[i].county);
-      console.log(county);
     }
     $('#myTable').DataTable();
 
-    let resultC = county.filter(function (element, index, arr) {
-      return arr.indexOf(element) === index;
-    });
-    // console.log(resultC);
-
+    let pm25total = {};
+    let pm25;
+    for (let i =0; i <data.length ; i++){
+      let tmp = data[i].county;
+      if(data[i].PM25 == ""){
+        pm25=0;
+      }else{
+        pm25 = parseInt(data[i].PM25);
+      }
+      if(pm25total.hasOwnProperty(tmp)){
+         pm25total[tmp] += pm25 ; 
+      }else{
+          pm25total[tmp] = pm25 ; 
+      }
+    }
+    let key = Object.keys(pm25total);
+    let values =  Object.values(pm25total);
+    let rgb = new Array();
+    let str = "";
+    for (let i= 1; i <= key.length ; i++){
+      let r  = Math.floor(Math.random()*256) ,  g = Math.floor(Math.random()*256) ,  b  = Math.floor(Math.random()*256)
+      str = `rgb(${r},${g},${b})`;
+      rgb.push(str)
+    }
+    let copy = values.slice(0,values.length);
+    // console.log( Math.max(copy));
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: key,
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132)',
-            'rgba(54, 162, 235)',
-            'rgba(255, 206, 86)',
-            'rgba(75, 192, 192)',
-            'rgba(153, 102, 255)',
-            'rgba(255, 159, 64)'
-          ],
-          borderColor: [
-            'rgba(0, 0, 0, 0)',
-          ],
+          data: values,
+          backgroundColor:rgb,
+          borderColor: rgb,
           borderWidth: 1
         }]
       },
